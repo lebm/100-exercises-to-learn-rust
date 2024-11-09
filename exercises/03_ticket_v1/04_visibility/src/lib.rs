@@ -1,12 +1,13 @@
+#[allow(dead_code)]
 mod ticket {
-    struct Ticket {
+    pub struct Ticket {
         title: String,
         description: String,
         status: String,
     }
 
     impl Ticket {
-        fn new(title: String, description: String, status: String) -> Ticket {
+        pub fn new(title: String, description: String, status: String) -> Ticket {
             if title.is_empty() {
                 panic!("Title cannot be empty");
             }
@@ -43,7 +44,9 @@ mod tests {
     // Be careful though! We don't want this function to compile after you have changed
     // visibility to make the use statement compile!
     // Once you have verified that it indeed doesn't compile, comment it out.
+    #[allow(dead_code)]
     fn should_not_be_possible() {
+        #[allow(unused_variables)]
         let ticket = Ticket::new("A title".into(), "A description".into(), "To-Do".into());
 
         // You should be seeing this error when trying to run this exercise:
@@ -55,9 +58,10 @@ mod tests {
         //
         // TODO: Once you have verified that the below does not compile,
         //   comment the line out to move on to the next exercise!
-        assert_eq!(ticket.description, "A description");
+        // assert_eq!(ticket.description, "A description");
     }
 
+    #[allow(dead_code)]
     fn encapsulation_cannot_be_violated() {
         // This should be impossible as well, with a similar error as the one encountered above.
         // (It will throw a compilation error only after you have commented the faulty line
@@ -68,10 +72,10 @@ mod tests {
         //
         // TODO: Once you have verified that the below does not compile,
         //   comment the lines out to move on to the next exercise!
-        let ticket = Ticket {
-            title: "A title".into(),
-            description: "A description".into(),
-            status: "To-Do".into(),
-        };
+        // let ticket = Ticket {
+        //     title: "A title".into(),
+        //     description: "A description".into(),
+        //     status: "To-Do".into(),
+        // };
     }
 }
