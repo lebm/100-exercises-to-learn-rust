@@ -2,6 +2,32 @@
 //  unless a certain operation has been performed on it.
 //  You can see the expected API in the tests below.
 
+// use core::panicking::panic_explicit;
+
+#[allow(dead_code)]
+struct DropBomb {
+    explode: bool,
+}
+
+#[allow(dead_code)]
+impl DropBomb {
+    pub fn new() -> DropBomb {
+        DropBomb { explode: true }
+    }
+
+    pub fn defuse(&mut self) {
+        self.explode = false;
+    }
+}
+
+impl Drop for DropBomb {
+    fn drop(&mut self) {
+        if self.explode {
+            panic!("Boom!");
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -9,7 +35,7 @@ mod tests {
     #[test]
     #[should_panic]
     fn test_drop_bomb() {
-        let bomb = DropBomb::new();
+        let _bomb = DropBomb::new();
         // The bomb should panic when dropped
     }
 
