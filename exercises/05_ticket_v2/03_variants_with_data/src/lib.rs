@@ -3,6 +3,7 @@
 //  Panic otherwise.
 
 #[derive(Debug, PartialEq)]
+#[allow(dead_code)]
 struct Ticket {
     title: String,
     description: String,
@@ -10,12 +11,14 @@ struct Ticket {
 }
 
 #[derive(Debug, PartialEq)]
+#[allow(dead_code)]
 enum Status {
     ToDo,
     InProgress { assigned_to: String },
     Done,
 }
 
+#[allow(dead_code)]
 impl Ticket {
     pub fn new(title: String, description: String, status: Status) -> Ticket {
         if title.is_empty() {
@@ -38,7 +41,10 @@ impl Ticket {
         }
     }
     pub fn assigned_to(&self) -> &str {
-        todo!()
+        match &self.status {
+            Status::InProgress { assigned_to } => assigned_to,
+            _ => panic!("Only `In-Progress` tickets can be assigned to someone"),
+        }
     }
 }
 
