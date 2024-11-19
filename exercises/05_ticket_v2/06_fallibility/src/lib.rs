@@ -2,6 +2,7 @@
 //   Use `String` as the error type.
 
 #[derive(Debug, PartialEq)]
+#[allow(dead_code)]
 struct Ticket {
     title: String,
     description: String,
@@ -9,32 +10,34 @@ struct Ticket {
 }
 
 #[derive(Debug, PartialEq)]
+#[allow(dead_code)]
 enum Status {
     ToDo,
     InProgress { assigned_to: String },
     Done,
 }
 
+#[allow(dead_code)]
 impl Ticket {
-    pub fn new(title: String, description: String, status: Status) -> Ticket {
+    pub fn new(title: String, description: String, status: Status) -> Result<Ticket, &'static str> {
         if title.is_empty() {
-            panic!("Title cannot be empty");
+            return Err("Title cannot be empty");
         }
         if title.len() > 50 {
-            panic!("Title cannot be longer than 50 bytes");
+            return Err("Title cannot be longer than 50 bytes");
         }
         if description.is_empty() {
-            panic!("Description cannot be empty");
+            return Err("Description cannot be empty");
         }
         if description.len() > 500 {
-            panic!("Description cannot be longer than 500 bytes");
+            return Err("Description cannot be longer than 500 bytes");
         }
 
-        Ticket {
+        Ok(Ticket {
             title,
             description,
             status,
-        }
+        })
     }
 }
 
