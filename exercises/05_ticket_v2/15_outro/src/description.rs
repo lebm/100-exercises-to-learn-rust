@@ -6,7 +6,7 @@
 pub struct TicketDescription(String);
 
 #[derive(Debug, thiserror::Error)]
-enum TicketDescriptionError {
+pub enum TicketDescriptionError {
     #[error("The description cannot be empty")]
     IsEmpty,
     #[error("The description cannot be longer than 500 bytes")]
